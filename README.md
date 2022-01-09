@@ -1,26 +1,3 @@
-# homework
+### Interview assignment
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-"# homework" 
-"# GraphQL_Todo" 
+#### Use GraphQL to subscribe to the todo_list and show the todo_list table on the web page.
