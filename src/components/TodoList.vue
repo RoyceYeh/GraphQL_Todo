@@ -26,25 +26,7 @@
 							:class="{ active: visibility == 'all' }"
 							@click="visibility = 'all'"
 							href="#"
-							>全部</a
-						>
-					</li>
-					<li class="nav-item">
-						<a
-							class="nav-link"
-							:class="{ active: visibility == 'active' }"
-							@click="visibility = 'active'"
-							href="#"
-							>進行中</a
-						>
-					</li>
-					<li class="nav-item">
-						<a
-							class="nav-link"
-							:class="{ active: visibility == 'completed' }"
-							@click="visibility = 'completed'"
-							href="#"
-							>已完成</a
+							>待辦事項</a
 						>
 					</li>
 				</ul>
@@ -56,23 +38,11 @@
 					v-bind:key="item.id"
 				>
 					<div class="d-flex" v-if="item.id !== editTodo.id">
-						<div class="form-check flex-grow-1 d-flex align-items-center">
-							<input
-								type="checkbox"
-								class="form-check-input"
-								:id="item.id"
-								v-model="item.completed"
-							/>
-							<label
-								class="form-check-label ms-3"
-								:class="{ completed: item.completed }"
-								:for="item.id"
-							>
-								{{ item.task }}
-							</label>
+						<div class="flex-grow-1 d-flex align-items-center">
+							<p :for="item.id">{{ item.task }}</p>
 						</div>
 						<div class="d-flex align-items-center">
-							<p class="mb-0 me-1">{{ item.updated_at }}</p>
+							<p class="mb-0 me-1">{{ item.assignee }}</p>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="16"
@@ -92,10 +62,12 @@
 							</svg>
 							<button
 								type="button"
-								class="btn-close"
+								class="btn btn-success ms-2"
 								aria-label="Close"
 								@click="removeTodo(item)"
-							></button>
+							>
+								完成
+							</button>
 						</div>
 					</div>
 					<input
@@ -121,6 +93,7 @@
 				id
 				updated_at
 				task
+				assignee
 			}
 		}
 	`;
@@ -132,6 +105,7 @@
 					id
 					task
 					updated_at
+					assignee
 				}
 			}
 		}
@@ -175,14 +149,14 @@
 								id
 								task
 								updated_at
+								assignee
 							}
 						}
 					`,
 					result({ data }) {
 						let todoList = data.todo_list;
 						todoList.forEach((todo) => {
-							todo.completed = false;
-							todo.updated_at = moment(todo.updated_at).format("Y-M-D h:mm a");
+							todo.updated_at = moment(todo.updated_at).format("M/D");
 						});
 
 						this.todos = data.todo_list;
@@ -203,7 +177,6 @@
 				this.todos.unshift({
 					id: timesTamp,
 					task: value,
-					completed: false,
 					updated_at: timesTamp,
 				});
 				this.$apollo.mutate({
@@ -300,5 +273,8 @@
 
 	.bi-pencil-square {
 		cursor: pointer;
+	}
+	p {
+		margin-bottom: 0;
 	}
 </style>
