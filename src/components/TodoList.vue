@@ -95,9 +95,7 @@
 								class="btn-close"
 								aria-label="Close"
 								@click="removeTodo(item)"
-							>
-								<!-- <span aria-hidden="true">&times;</span> -->
-							</button>
+							></button>
 						</div>
 					</div>
 					<input
