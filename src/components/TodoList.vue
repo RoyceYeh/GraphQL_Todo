@@ -32,11 +32,7 @@
 				</ul>
 			</div>
 			<ul class="list-group list-group-flush text-left">
-				<li
-					class="list-group-item"
-					v-for="item in filterTodos"
-					v-bind:key="item.id"
-				>
+				<li class="list-group-item" v-for="item in todos" v-bind:key="item.id">
 					<div class="d-flex" v-if="item.id !== editTodo.id">
 						<div class="flex-grow-1 d-flex align-items-center">
 							<p :for="item.id">{{ item.task }}</p>
@@ -237,28 +233,6 @@
 				this.editTodo = {};
 			},
 		},
-		computed: {
-			filterTodos() {
-				let activeTodos = [];
-				if (this.visibility === "all") {
-					activeTodos = this.todos;
-				} else if (this.visibility === "active") {
-					this.todos.forEach(function (item) {
-						if (item.completed == false) {
-							activeTodos.push(item);
-						}
-					});
-				} else if (this.visibility === "completed") {
-					this.todos.forEach(function (item) {
-						if (item.completed == true) {
-							activeTodos.push(item);
-						}
-					});
-				}
-				return activeTodos;
-			},
-		},
-		mounted() {},
 	};
 </script>
 
